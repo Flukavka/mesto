@@ -1,5 +1,4 @@
 .profile__info-edit {
-  margin-bottom: 20px;
   background: center/10px 10px no-repeat url(../../../images/pencil-icon.svg);
   border: 1px solid #fff;
   width: 24px;
@@ -8,16 +7,17 @@
   cursor: pointer;
   opacity: 1;
   transition: opacity 0.4s linear;
+  margin: 16px 0 0 18px;
 }
 
 .profile__info-edit:hover {
   opacity: 0.6;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 450px) {
   .profile__info-edit {
     max-width: 18px;
     max-height: 18px;
-    margin-bottom: 26px;
+    margin: 8px 0 0 10px;
   }
 }

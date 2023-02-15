@@ -1,0 +1,7 @@
+.profile__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: baseline;
+  margin-bottom: 16px;
+}

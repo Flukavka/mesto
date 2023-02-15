@@ -11,9 +11,10 @@
   max-width: 294px;
 }
 
-@media screen and (max-width: 530px) {
+@media screen and (max-width: 450px) {
   .profile__username {
     font-size: 27px;
     line-height: 1.2;
+    text-align: center;
   }
 }

@@ -23,8 +23,8 @@
       <main class="content container">
         <section class="profile">
           <div class="popup profile__popup hidden">
-            <div class="form-wrapper">
-              <form action="" class="popup__form">
+            <div class="display-flex">
+              <form class="popup__form">
                 <h2 class="popup__title">Редактировать профиль</h2>
 
                 <input
@@ -60,15 +60,15 @@
             />
 
             <div class="profile__user-info">
-              <h1 class="profile__username">Жак-Ив Кусто</h1>
-
-              <p class="profile__profession">Исследователь океана</p>
+              <div class="profile__wrapper">
+                <h1 class="profile__username">Жак-Ив Кусто</h1>
+                <p class="profile__profession">Исследователь океана</p>
+              </div>
+              <button
+                class="profile__info-edit"
+                aria-label="Редактировать данные профиля"
+              ></button>
             </div>
-
-            <button
-              class="profile__info-edit"
-              aria-label="Редактировать данные профиля"
-            ></button>
           </div>
 
           <button

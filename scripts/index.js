@@ -42,9 +42,16 @@ function importUserInfoInPopup() {
 function userInfoSave(event) {
   userName.textContent = userNameInput.value;
   userProfession.textContent = userProfessionInput.value;
+  if (userNameInput.value === '') {
+    userName.textContent = userNameInput.placeholder;
+  };
+  if (userProfessionInput.value === '') {
+    userProfession.textContent = userProfessionInput.placeholder;
+  };
   event.preventDefault();
   popupHidden();
-};
+}
+;
 
 
 btnProfileEdit.addEventListener('click', popupShow);
