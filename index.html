@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Место</title>
     <link rel="stylesheet" href="./pages/index.css" />
+    <script src="./scripts/index.js" defer></script>
   </head>
   <body>
     <div class="root">
@@ -18,6 +19,64 @@
           />
         </a>
       </header>
+
+      <main class="content container">
+        <section class="profile">
+          <div class="popup profile__popup hidden">
+            <div class="form-wrapper">
+              <form action="" class="popup__form">
+                <h2 class="popup__title">Редактировать профиль</h2>
+
+                <input
+                  class="popup__input popup__input-username"
+                  name="username"
+                  type="text"
+                  placeholder="Введите имя"
+                />
+
+                <input
+                  class="popup__input popup__input-profession"
+                  name="profession"
+                  type="text"
+                  placeholder="Введите профессию"
+                />
+
+                <button class="popup__btn-save">Сохранить</button>
+              </form>
+              <button
+                class="popup__close"
+                aria-label="Закрыть всплывающее окно"
+              ></button>
+            </div>
+
+            <div class="overlay"></div>
+          </div>
+
+          <div class="profile__info">
+            <img
+              class="profile__avatar"
+              src="./images/avatar.jpg"
+              alt="Аватар пользователя"
+            />
+
+            <div class="profile__user-info">
+              <h1 class="profile__username">Жак-Ив Кусто</h1>
+
+              <p class="profile__profession">Исследователь океана</p>
+            </div>
+
+            <button
+              class="profile__info-edit"
+              aria-label="Редактировать данные профиля"
+            ></button>
+          </div>
+
+          <button
+            class="profile__btn-add"
+            aria-label="Добавить профиль"
+          ></button>
+        </section>
+      </main>
     </div>
   </body>
 </html>
