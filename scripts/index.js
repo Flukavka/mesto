@@ -2,11 +2,11 @@
 const popup = document.querySelector('.popup');
 const btnProfileEdit = document.querySelector('.profile__info-edit');
 const btnPopupClose = document.querySelector('.popup__close');
-const btnPopupSave = document.querySelector('.popup__btn-save');
 let userName = document.querySelector('.profile__username');
 let userProfession = document.querySelector('.profile__profession');
 let userNameInput = document.querySelector('.popup__input-username');
 let userProfessionInput = document.querySelector('.popup__input-profession');
+let formElement = document.querySelector('.popup__form');
 
 /**
  * Функция открывает попап
@@ -37,9 +37,12 @@ function importUserInfoInPopup() {
 };
 
 /**
- * Функция сохраняет информацию внесенную пользователем в профиле
+ * Функция сохраняет информацию внесенную пользователем в профиле и отправляет
+ * данные формы на сервер
  */
-function userInfoSave(event) {
+function formSubmitHandler(evt) {
+  evt.preventDefault();
+
   userName.textContent = userNameInput.value;
   userProfession.textContent = userProfessionInput.value;
   if (userNameInput.value === '') {
@@ -48,14 +51,11 @@ function userInfoSave(event) {
   if (userProfessionInput.value === '') {
     userProfession.textContent = userProfessionInput.placeholder;
   };
-  event.preventDefault();
   popupHidden();
 }
-;
-
 
 btnProfileEdit.addEventListener('click', popupShow);
 
 btnPopupClose.addEventListener('click', popupHidden);
 
-btnPopupSave.addEventListener('click', userInfoSave);
+formElement.addEventListener('submit', formSubmitHandler);
