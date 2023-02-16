@@ -13,8 +13,8 @@ let userProfessionInput = document.querySelector('.popup__input-profession');
  */
 function popupShow() {
   importUserInfoInPopup();
-  if (popup.classList.contains('hidden')) {
-    popup.classList.remove('hidden');
+  if (popup.classList.contains('popup_opened')) {
+    popup.classList.remove('popup_opened');
   }
 };
 
@@ -22,8 +22,8 @@ function popupShow() {
  * Функция закрывает попап
  */
 function popupHidden() {
-  if (!popup.classList.contains('hidden')) {
-    popup.classList.add('hidden');
+  if (!popup.classList.contains('popup_opened')) {
+    popup.classList.add('popup_opened');
   }
 };
 
