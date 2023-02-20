@@ -12,13 +12,11 @@
     <div class="root">
       <!-- Начало блока header -->
       <header class="header container">
-        <a class="header__logo" href="./index.html">
-          <img
-            class="logo"
-            src="./images/logo.svg"
-            alt="Логотоип Место-Россия"
-          />
-        </a>
+        <a
+          class="logo"
+          href="./index.html"
+          aria-label="Ссылка на главную страницу"
+        ></a>
       </header>
       <!-- Конец блока header -->
 
@@ -27,19 +25,19 @@
         <section class="profile">
           <!-- Начало popup -->
           <div class="popup profile__popup popup_opened">
-            <div class="display-flex">
-              <form class="popup__form">
-                <h2 class="popup__title">Редактировать профиль</h2>
+            <div class="popup__container">
+              <h2 class="popup__title">Редактировать профиль</h2>
 
+              <form class="popup__form">
                 <input
-                  class="popup__input popup__input-username"
+                  class="popup__input popup__input_field_username"
                   name="username"
                   type="text"
                   placeholder="Введите имя"
                 />
 
                 <input
-                  class="popup__input popup__input-profession"
+                  class="popup__input popup__input_field_profession"
                   name="profession"
                   type="text"
                   placeholder="Введите профессию"
@@ -47,12 +45,13 @@
 
                 <button type="submit" class="popup__btn-save">Сохранить</button>
               </form>
-
-              <button
-                class="popup__close"
-                aria-label="Закрыть всплывающее окно"
-              ></button>
             </div>
+
+            <button
+              type="button"
+              class="popup__close"
+              aria-label="Закрыть всплывающее окно"
+            ></button>
 
             <div class="overlay"></div>
           </div>
@@ -73,6 +72,7 @@
               </div>
 
               <button
+                type="button"
                 class="profile__info-edit"
                 aria-label="Редактировать данные профиля"
               ></button>
@@ -80,6 +80,7 @@
           </div>
 
           <button
+            type="button"
             class="profile__btn-add"
             aria-label="Добавить профиль"
           ></button>
@@ -99,9 +100,11 @@
               <div class="element__description">
                 <h2 class="element__title">Карачаевск</h2>
 
-                <button class="element__btn">
-                  <img class="like" src="./images/like-icon.svg" alt="Лайк" />
-                </button>
+                <button
+                  class="element__btn"
+                  type="button"
+                  aria-label="Кнопка лайк"
+                ></button>
               </div>
             </li>
 
@@ -115,13 +118,11 @@
               <div class="element__description">
                 <h2 class="element__title">Гора Эльбрус</h2>
 
-                <button class="element__btn">
-                  <img
-                    class="like like_active"
-                    src="./images/like-icon_active.svg"
-                    alt="Лайк"
-                  />
-                </button>
+                <button
+                  class="element__btn element__btn_active"
+                  type="button"
+                  aria-label="Кнопка лайк"
+                ></button>
               </div>
             </li>
 
@@ -135,9 +136,11 @@
               <div class="element__description">
                 <h2 class="element__title">Домбай</h2>
 
-                <button class="element__btn">
-                  <img class="like" src="./images/like-icon.svg" alt="Лайк" />
-                </button>
+                <button
+                  class="element__btn"
+                  type="button"
+                  aria-label="Кнопка лайк"
+                ></button>
               </div>
             </li>
 
@@ -151,9 +154,11 @@
               <div class="element__description">
                 <h2 class="element__title">Краснодарский край</h2>
 
-                <button class="element__btn">
-                  <img class="like" src="./images/like-icon.svg" alt="Лайк" />
-                </button>
+                <button
+                  class="element__btn"
+                  type="button"
+                  aria-label="Кнопка лайк"
+                ></button>
               </div>
             </li>
 
@@ -167,9 +172,11 @@
               <div class="element__description">
                 <h2 class="element__title">Чегем</h2>
 
-                <button class="element__btn">
-                  <img class="like" src="./images/like-icon.svg" alt="Лайк" />
-                </button>
+                <button
+                  class="element__btn"
+                  type="button"
+                  aria-label="Кнопка лайк"
+                ></button>
               </div>
             </li>
 
@@ -183,9 +190,11 @@
               <div class="element__description">
                 <h2 class="element__title">Камчатка</h2>
 
-                <button class="element__btn">
-                  <img class="like" src="./images/like-icon.svg" alt="Лайк" />
-                </button>
+                <button
+                  class="element__btn"
+                  type="button"
+                  aria-label="Кнопка лайк"
+                ></button>
               </div>
             </li>
           </ul>

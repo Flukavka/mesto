@@ -1,5 +1,7 @@
 .element__btn {
   padding: 0;
   border: 0;
-  background: 0;
+  background: center no-repeat url(../../../images/like-icon.svg);
+  width: 22px;
+  height: 19px;
 }

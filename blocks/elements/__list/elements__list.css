@@ -20,6 +20,11 @@
   .elements__list {
     grid-template-columns: repeat(1, minmax(min-content, max-content));
     grid-template-rows: repeat(6, minmax(min-content, max-content));
-    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .elements__list {
+    gap: 14px;
   }
 }

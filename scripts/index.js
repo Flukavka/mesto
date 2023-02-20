@@ -4,8 +4,8 @@ const btnProfileEdit = document.querySelector('.profile__info-edit');
 const btnPopupClose = document.querySelector('.popup__close');
 let userName = document.querySelector('.profile__username');
 let userProfession = document.querySelector('.profile__profession');
-let userNameInput = document.querySelector('.popup__input-username');
-let userProfessionInput = document.querySelector('.popup__input-profession');
+let userNameInput = document.querySelector('.popup__input_field_username');
+let userProfessionInput = document.querySelector('.popup__input_field_profession');
 let formElement = document.querySelector('.popup__form');
 
 /**
@@ -45,12 +45,6 @@ function formSubmitHandler(evt) {
 
   userName.textContent = userNameInput.value;
   userProfession.textContent = userProfessionInput.value;
-  if (userNameInput.value === '') {
-    userName.textContent = userNameInput.placeholder;
-  };
-  if (userProfessionInput.value === '') {
-    userProfession.textContent = userProfessionInput.placeholder;
-  };
   popupHidden();
 }
 
