@@ -4,8 +4,8 @@ const popupProfile = document.querySelector('.popup-profile');
 const popupElement = document.querySelector('.popup-element');
 const btnProfileEdit = document.querySelector('.profile__info-edit');
 const btnElementAddPlace = document.querySelector('.profile__btn-add');
-const btnPopupProfileClose = document.querySelector('.popup-profile_close');
-const btnPopupElementClose = document.querySelector('.popup-element_close');
+const btnPopupProfileClose = document.querySelector('.popup__close-profile');
+const btnPopupElementClose = document.querySelector('.popup-close-element');
 
 let userName = document.querySelector('.profile__username');
 let userProfession = document.querySelector('.profile__profession');
