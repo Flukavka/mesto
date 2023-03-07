@@ -23,8 +23,8 @@
       <main class="content container">
         <!-- Начало секции profile -->
         <section class="profile">
-          <!-- Начало popup -->
-          <div class="popup profile__popup popup_opened">
+          <!-- Начало profile popup -->
+          <div class="popup popup-profile popup_opened">
             <div class="popup__container">
               <h2 class="popup__title">Редактировать профиль</h2>
 
@@ -49,13 +49,13 @@
 
             <button
               type="button"
-              class="popup__close"
+              class="popup__close popup-profile_close"
               aria-label="Закрыть всплывающее окно"
             ></button>
 
             <div class="overlay"></div>
           </div>
-          <!-- Конец popup -->
+          <!-- Конец profile popup -->
 
           <div class="profile__info">
             <img
@@ -82,23 +82,81 @@
           <button
             type="button"
             class="profile__btn-add"
-            aria-label="Добавить профиль"
+            aria-label="Добавить новое место"
           ></button>
+
+          <!-- Начало element popup -->
+          <div class="popup popup-element popup_opened">
+            <div class="popup__container">
+              <h2 class="popup__title">Новое место</h2>
+
+              <form class="popup__form popup-element__form">
+                <input
+                  class="popup__input popup__input_field_place-name"
+                  name="name"
+                  type="text"
+                  placeholder="Название"
+                />
+
+                <input
+                  class="popup__input popup__input_field_place-image"
+                  name="place-image"
+                  type="text"
+                  placeholder="Ссылка на картинку"
+                />
+
+                <button
+                  type="submit"
+                  class="popup__btn-save popup-element__btn-save_place"
+                >
+                  Создать
+                </button>
+              </form>
+            </div>
+
+            <button
+              type="button"
+              class="popup__close popup-element_close"
+              aria-label="Закрыть всплывающее окно"
+            ></button>
+
+            <div class="overlay"></div>
+          </div>
+          <!-- Конец element popup -->
         </section>
         <!-- Конец секции profile -->
 
         <!-- Начало секции elements -->
         <section class="elements">
-          <ul class="elements__list">
+          <template class="element-template">
             <li class="element">
-              <img
-                class="element__image"
-                src="./images/karachevsk.jpg"
-                alt="Фотография города Карачевск"
-              />
+              <!-- Начало image popup -->
+              <div class="popup popup-image popup_opened">
+                <figure class="popup-image__figure">
+                  <button
+                    type="button"
+                    class="popup__close popup-image_close"
+                    aria-label="Закрыть всплывающее окно"
+                  ></button>
+
+                  <img class="popup__image" src="#" alt="Фотография" />
+
+                  <figcaption class="popup__image-title"></figcaption>
+                </figure>
+
+                <div class="overlay"></div>
+              </div>
+              <!-- Конец image popup -->
+              <img class="element__image" src="#" alt="Фотография" />
+
+              <button
+                class="element__btn-delete"
+                type="button"
+                aria-label="Кнопка удаления карточки"
+              ></button>
 
               <div class="element__description">
-                <h2 class="element__title">Карачаевск</h2>
+                <h2 class="element__title"></h2>
 
                 <button
                   class="element__btn"
@@ -107,97 +165,9 @@
                 ></button>
               </div>
             </li>
+          </template>
 
-            <li class="element">
-              <img
-                class="element__image"
-                src="./images/elbrus.jpg"
-                alt="Вид на гору Эльбрус"
-              />
-
-              <div class="element__description">
-                <h2 class="element__title">Гора Эльбрус</h2>
-
-                <button
-                  class="element__btn element__btn_active"
-                  type="button"
-                  aria-label="Кнопка лайк"
-                ></button>
-              </div>
-            </li>
-
-            <li class="element">
-              <img
-                class="element__image"
-                src="./images/dombai.jpg"
-                alt="Фотография горы Домбай"
-              />
-
-              <div class="element__description">
-                <h2 class="element__title">Домбай</h2>
-
-                <button
-                  class="element__btn"
-                  type="button"
-                  aria-label="Кнопка лайк"
-                ></button>
-              </div>
-            </li>
-
-            <li class="element">
-              <img
-                class="element__image"
-                src="./images/krasnodarskii.jpg"
-                alt="Фотография береговой линии в Краснодарском крае"
-              />
-
-              <div class="element__description">
-                <h2 class="element__title">Краснодарский край</h2>
-
-                <button
-                  class="element__btn"
-                  type="button"
-                  aria-label="Кнопка лайк"
-                ></button>
-              </div>
-            </li>
-
-            <li class="element">
-              <img
-                class="element__image"
-                src="./images/chegem.jpg"
-                alt="Фотография гор Чегема"
-              />
-
-              <div class="element__description">
-                <h2 class="element__title">Чегем</h2>
-
-                <button
-                  class="element__btn"
-                  type="button"
-                  aria-label="Кнопка лайк"
-                ></button>
-              </div>
-            </li>
-
-            <li class="element">
-              <img
-                class="element__image"
-                src="./images/kamchatka.jpg"
-                alt="Фотография кратерного озера на Камчатке"
-              />
-
-              <div class="element__description">
-                <h2 class="element__title">Камчатка</h2>
-
-                <button
-                  class="element__btn"
-                  type="button"
-                  aria-label="Кнопка лайк"
-                ></button>
-              </div>
-            </li>
-          </ul>
+          <ul class="elements__list"></ul>
         </section>
         <!-- Конец секции elements -->
       </main>

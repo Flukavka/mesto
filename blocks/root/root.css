@@ -7,4 +7,5 @@
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   position: relative;
+  min-height: 100vh;
 }
