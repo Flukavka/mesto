@@ -5,6 +5,7 @@
 @import url(../blocks/root/root.css);
 
 @import url(../blocks/overlay/overlay.css);
+@import url(../blocks/overlay/_opacity/overlay_opacity.css);
 
 @import url(../blocks/container/container.css);
 

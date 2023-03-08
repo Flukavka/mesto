@@ -1,102 +1,68 @@
 'use strict'
-const popup = document.querySelector('.popup');
 const popupProfile = document.querySelector('.popup-profile');
-const popupElement = document.querySelector('.popup-element');
+const popupCard = document.querySelector('.popup-element');
+const popupImageWrapper = document.querySelector('.popup-image');
 const btnProfileEdit = document.querySelector('.profile__info-edit');
-const btnElementAddPlace = document.querySelector('.profile__btn-add');
+const btnCardAdd = document.querySelector('.profile__btn-add');
 const btnPopupProfileClose = document.querySelector('.popup__close-profile');
-const btnPopupElementClose = document.querySelector('.popup-close-element');
-
-let userName = document.querySelector('.profile__username');
-let userProfession = document.querySelector('.profile__profession');
-let userNameInput = document.querySelector('.popup__input_field_username');
-let userProfessionInput = document.querySelector('.popup__input_field_profession');
-let formElement = document.querySelector('.popup__form');
-let formElementPlace = document.querySelector('.popup-element__form');
-const elementsList = document.querySelector('.elements__list');
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-    alt: 'Фотография Архыз'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-    alt: 'Фотография Челябинской области'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-    alt: 'Фотография города Иваново'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-    alt: 'Фотография Камчатки'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-    alt: 'Фотография Холмогорского района'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-    alt: 'Фотография Байкала'
-  }
-];
+const btnPopupCardClose = document.querySelector('.popup__close-element'); //
+const btnPopupImageClose = document.querySelector('.popup-image_close');
+const placeName = document.querySelector('.popup__input_field_place-name');
+const placeImage = document.querySelector('.popup__input_field_place-image');
+const popupImage = document.querySelector('.popup__image');
+const popupTitle = document.querySelector('.popup__image-title');
+const userName = document.querySelector('.profile__username');
+const userNameInput = document.querySelector('.popup__input_field_username');
+const userProfession = document.querySelector('.profile__profession');
+const userProfessionInput = document.querySelector('.popup__input_field_profession');
+const formProfile = document.querySelector('.popup-profile__form');
+const formCardPlace = document.querySelector('.popup-element__form');
+const cardsContainer = document.querySelector('.elements__list');
+const cardTemplate = document.querySelector('.element-template');
 
 /**
- * Функция принимает объект из массива initialCards и добавляет его в DOM
- * @param {object} card объект
+ * Функция принимает объект из массива initialCards, добавляет его в массив
+ * и возвращает массив
+ * @param {object} cardData объект
  */
-function createdElement(card) {
-  const element = document.querySelector('.element-template').content.cloneNode(true);
-  const elementTitle = element.querySelector('.element__title');
-  const elementImage = element.querySelector('.element__image');
-  const popupImageWrapper = element.querySelector('.popup-image');
-  const popupImage = element.querySelector('.popup__image');
-  const popupTitle = element.querySelector('.popup__image-title');
+function createCard(cardData) {
+  const card = cardTemplate.content.cloneNode(true);
+  const cardTitle = card.querySelector('.element__title');
+  const cardImage = card.querySelector('.element__image');
 
-  elementImage.setAttribute('src', card.link);
-  elementImage.setAttribute('alt', card.alt);
-  elementTitle.textContent = card.name;
+  cardImage.src = cardData.link;
+  cardImage.alt = cardData.alt;
+  cardTitle.textContent = cardData.name;
 
-  popupImage.setAttribute('src', card.link);
-  popupImage.setAttribute('alt', card.alt);
-  popupTitle.textContent = card.name;
+  //Событие лайка карточки
+  const buttonLike = card.querySelector('.element__btn');
+  buttonLike.addEventListener("click", () => handleLikeCard(buttonLike));
 
-  element.querySelector('.element__btn').addEventListener('click', (evt) => {
-    evt.target.classList.toggle('element__btn_active');
-  });
 
-  element.querySelector('.element__btn-delete').addEventListener('click',
-    (evt) => {
-      let card = evt.target.closest('.element');
-      card.remove();
-    }
-  );
+  //Событие удаления карточки
+  const buttonDeleteCard = card.querySelector('.element__btn-delete');
+  buttonDeleteCard.addEventListener('click', () => handleDeleteCard(buttonDeleteCard));
 
-  element.querySelector('.element__image').addEventListener('click', () => {
-    popupShow(popupImageWrapper);
-  });
+  cardImage.addEventListener('click', () => createImagePopup(cardData));
 
-  element.querySelector('.popup-image_close').addEventListener('click', () => {
-    popupHidden(popupImageWrapper);
-  });
+  return prependCard(card);
+};
 
-  elementsList.append(element);
+/**
+ * Функция принимает объект с карточкой на вход и добавляет её на страницу
+ * @param {object} card объект с карточкой
+ */
+function prependCard(card) {
+  cardsContainer.prepend(card);
 };
 
 /**
  * Функция принимает текущий объект из DOM и открывает попап
  * @param {object} currentPopup текущий объект - попап
  */
-function popupShow(currentPopup) {
-  if (currentPopup.classList.contains('popup_opened')) {
-    currentPopup.classList.remove('popup_opened');
+function showPopup(currentPopup) {
+  if (!currentPopup.classList.contains('popup_opened')) {
+    currentPopup.classList.add('popup_opened');
   }
 };
 
@@ -104,9 +70,9 @@ function popupShow(currentPopup) {
  * Функция принимает текущий объект из DOM и закрывает попап
  * @param {object} currentPopup текущий объект - попап
  */
-function popupHidden(currentPopup) {
-  if (!currentPopup.classList.contains('popup_opened')) {
-    currentPopup.classList.add('popup_opened');
+function hidePopup(currentPopup) {
+  if (currentPopup.classList.contains('popup_opened')) {
+    currentPopup.classList.remove('popup_opened');
   }
 };
 
@@ -123,58 +89,86 @@ function importUserInfoInPopup() {
  * Функция сохраняет информацию внесенную пользователем в профиле и отправляет
  * данные формы на сервер,после чего закрывает попап
  */
-function formSubmitHandler(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
   userName.textContent = userNameInput.value;
   userProfession.textContent = userProfessionInput.value;
-  popupHidden(popupProfile);
+  hidePopup(popupProfile);
 };
 
 /**
  * Функция сохраняет данные введённые пользователем, вызывает функцию создания
  * объекта и отправляет данные формы на сервер,после чего закрывает попап
  */
-function formCreatElementHandler(evt) {
+function handleCardFormSubmit(evt) {
   evt.preventDefault();
 
-  const placeName = document.querySelector('.popup__input_field_place-name').value;
-  const placeImage = document.querySelector('.popup__input_field_place-image').value;
-  creatNewElement(placeName, placeImage);
-  popupHidden(popupElement);
+  createNewCard(placeName.value, placeImage.value);
+  hidePopup(popupCard);
 };
 
 /**
- * Функция принимает данные и создаёт из них объект, добавляет объект в массив и
- * вызывыает функцию доюавляющую новую карточку на страницу
+ * Функция принимает данные и передаёт их в виде объекта функции создания карты
+ * карты
  * @param {string} placeName string - Наименование карточки
  * @param {string} placeImage string - Ссылка на изображение
+ * @param {string} alt strin - Значение атрибута alt
  */
-function creatNewElement(placeName, placeImage) {
-  let elementIndex = initialCards.length;
-  initialCards.push({ name: placeName, link: placeImage, alt: 'Фотография пользователя' });
-  createdElement(initialCards[elementIndex]);
+function createNewCard(placeName, placeImage, alt = 'Фотография пользователя') {
+  createCard({ name: placeName, link: placeImage, alt: alt });
 };
 
+
+function createImagePopup(cardData) {
+  popupImage.src = cardData.link;
+  popupImage.alt = cardData.alt;
+  popupTitle.textContent = cardData.name;
+
+  showPopup(popupImageWrapper);
+};
+
+/**
+ * Функция принимает на вход текущую кнопку лайк и добавляет или удаляет класс
+ * @param {object} buttonLike объект переданный из обработчика события
+ */
+function handleLikeCard(buttonLike) {
+  buttonLike.classList.toggle('element__btn_active');
+};
+
+/**
+ * Функция принимает на вход текущую кнопку удалить, находит ближайший
+ * родительский элемент с заданным классом и удаляет его
+ * @param {object} buttonDeleteCard объект переданный из обработчика события
+ */
+function handleDeleteCard(buttonDeleteCard) {
+  const currentCard = buttonDeleteCard.closest('.element');
+  currentCard.remove();
+}
+
 importUserInfoInPopup();
-initialCards.forEach(createdElement);
+initialCards.forEach(createCard);
 
 btnProfileEdit.addEventListener('click', () => {
-  popupShow(popupProfile);
+  showPopup(popupProfile);
 });
 
-btnElementAddPlace.addEventListener('click', () => {
-  popupShow(popupElement);
+btnCardAdd.addEventListener('click', () => {
+  showPopup(popupCard);
 });
 
 btnPopupProfileClose.addEventListener('click', () => {
-  popupHidden(popupProfile);
+  hidePopup(popupProfile);
 });
 
-btnPopupElementClose.addEventListener('click', () => {
-  popupHidden(popupElement);
+btnPopupCardClose.addEventListener('click', () => {
+  hidePopup(popupCard);
 });
 
-formElement.addEventListener('submit', formSubmitHandler);
+btnPopupImageClose.addEventListener('click', () => {
+  hidePopup(popupImageWrapper);
+});
 
-formElementPlace.addEventListener('submit', formCreatElementHandler);
+formProfile.addEventListener('submit', handleProfileFormSubmit);
+
+formCardPlace.addEventListener('submit', handleCardFormSubmit);
