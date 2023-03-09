@@ -146,10 +146,10 @@ function handleDeleteCard(buttonDeleteCard) {
   currentCard.remove();
 }
 
-importUserInfoInPopup();
 initialCards.forEach(createCard);
 
 btnProfileEdit.addEventListener('click', () => {
+  importUserInfoInPopup();
   showPopup(popupProfile);
 });
 
