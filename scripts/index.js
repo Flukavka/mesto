@@ -43,7 +43,7 @@ function createCard(cardData) {
   const buttonDeleteCard = card.querySelector('.element__btn-delete');
   buttonDeleteCard.addEventListener('click', () => handleDeleteCard(buttonDeleteCard));
 
-  cardImage.addEventListener('click', () => createImagePopup(cardData));
+  cardImage.addEventListener('click', () => openImagePopup(cardData));
 
   return prependCard(card);
 };
@@ -106,6 +106,8 @@ function handleCardFormSubmit(evt) {
 
   createNewCard(placeName.value, placeImage.value);
   hidePopup(popupCard);
+  placeName.value = '';
+  placeImage.value = '';
 };
 
 /**
@@ -119,8 +121,11 @@ function createNewCard(placeName, placeImage, alt = 'Фотография пол
   createCard({ name: placeName, link: placeImage, alt: alt });
 };
 
-
-function createImagePopup(cardData) {
+/**
+ * Функция открывает попап и настраивает его содержимое
+ * @param {object} cardData объект карточки
+ */
+function openImagePopup(cardData) {
   popupImage.src = cardData.link;
   popupImage.alt = cardData.alt;
   popupTitle.textContent = cardData.name;
