@@ -31,7 +31,7 @@ function createCard(cardData) {
   const cardImage = card.querySelector('.element__image');
 
   cardImage.src = cardData.link;
-  cardImage.alt = cardData.alt;
+  cardImage.alt = `Фотография ${cardData.name}`;
   cardTitle.textContent = cardData.name;
 
   //Событие лайка карточки
@@ -43,9 +43,9 @@ function createCard(cardData) {
   const buttonDeleteCard = card.querySelector('.element__btn-delete');
   buttonDeleteCard.addEventListener('click', () => handleDeleteCard(buttonDeleteCard));
 
-  cardImage.addEventListener('click', () => openImagePopup(cardData));
+  cardImage.addEventListener('click', () => openImagePopup(cardImage, cardTitle));
 
-  return prependCard(card);
+  return card;
 };
 
 /**
@@ -61,9 +61,7 @@ function prependCard(card) {
  * @param {object} currentPopup текущий объект - попап
  */
 function showPopup(currentPopup) {
-  if (!currentPopup.classList.contains('popup_opened')) {
-    currentPopup.classList.add('popup_opened');
-  }
+  currentPopup.classList.add('popup_opened');
 };
 
 /**
@@ -71,9 +69,7 @@ function showPopup(currentPopup) {
  * @param {object} currentPopup текущий объект - попап
  */
 function hidePopup(currentPopup) {
-  if (currentPopup.classList.contains('popup_opened')) {
-    currentPopup.classList.remove('popup_opened');
-  }
+  currentPopup.classList.remove('popup_opened');
 };
 
 /**
@@ -105,6 +101,7 @@ function handleCardFormSubmit(evt) {
   evt.preventDefault();
 
   createNewCard(placeName.value, placeImage.value);
+
   hidePopup(popupCard);
   placeName.value = '';
   placeImage.value = '';
@@ -112,23 +109,23 @@ function handleCardFormSubmit(evt) {
 
 /**
  * Функция принимает данные и передаёт их в виде объекта функции создания карты
- * карты
+ * для дальнейшего добавления на страницу
  * @param {string} placeName string - Наименование карточки
  * @param {string} placeImage string - Ссылка на изображение
- * @param {string} alt strin - Значение атрибута alt
+ * @param {string} alt string - Значение атрибута alt
  */
-function createNewCard(placeName, placeImage, alt = 'Фотография пользователя') {
-  createCard({ name: placeName, link: placeImage, alt: alt });
+function createNewCard(placeName, placeImage) {
+  prependCard(createCard({ name: placeName, link: placeImage }));
 };
 
 /**
  * Функция открывает попап и настраивает его содержимое
  * @param {object} cardData объект карточки
  */
-function openImagePopup(cardData) {
-  popupImage.src = cardData.link;
-  popupImage.alt = cardData.alt;
-  popupTitle.textContent = cardData.name;
+function openImagePopup(cardImage, cardTitle) {
+  popupImage.src = cardImage.src;
+  popupImage.alt = cardImage.alt;
+  popupTitle.textContent = cardTitle.textContent;
 
   showPopup(popupImageWrapper);
 };
@@ -151,7 +148,7 @@ function handleDeleteCard(buttonDeleteCard) {
   currentCard.remove();
 }
 
-initialCards.forEach(createCard);
+initialCards.forEach((card) => { prependCard(createCard(card)) });
 
 btnProfileEdit.addEventListener('click', () => {
   importUserInfoInPopup();
