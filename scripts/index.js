@@ -103,8 +103,7 @@ function handleCardFormSubmit(evt) {
   createNewCard(placeName.value, placeImage.value);
 
   hidePopup(popupCard);
-  placeName.value = '';
-  placeImage.value = '';
+  formCardPlace.reset();
 };
 
 /**
