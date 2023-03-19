@@ -9,15 +9,15 @@
   padding-bottom: 13px;
 }
 
-.popup__input:first-of-type {
+/* .popup__input:first-of-type {
   margin-bottom: 24px;
 }
 
 .popup__input:last-of-type {
   margin-bottom: 36px;
-}
+} */
 
 .popup__input::placeholder {
-  color: #000;
+  color: #C4C4C4;
   margin-bottom: 30px;
 }

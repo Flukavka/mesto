@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./pages/index.css" />
     <script src="./scripts/cards.js" defer></script>
     <script src="./scripts/index.js" defer></script>
+    <script src="./scripts/validate.js" defer></script>
   </head>
   <body>
     <div class="root">
@@ -26,25 +27,39 @@
         <section class="profile">
           <!-- Начало profile popup -->
           <div class="popup popup-profile">
+            <div class="overlay"></div>
+
             <div class="popup__container">
               <h2 class="popup__title">Редактировать профиль</h2>
 
-              <form class="popup__form popup-profile__form">
+              <form class="popup__form popup-profile__form" novalidate>
                 <input
                   class="popup__input popup__input_field_username"
                   name="username"
                   type="text"
                   placeholder="Введите имя"
+                  minlength="2"
+                  maxlength="40"
+                  required
                 />
+
+                <span class="popup__error"></span>
 
                 <input
                   class="popup__input popup__input_field_profession"
                   name="profession"
                   type="text"
                   placeholder="Введите профессию"
+                  minlength="2"
+                  maxlength="200"
+                  required
                 />
 
-                <button type="submit" class="popup__btn-save">Сохранить</button>
+                <span class="popup__error"></span>
+
+                <button type="submit" class="popup__btn-save popup__button">
+                  Сохранить
+                </button>
               </form>
             </div>
 
@@ -53,8 +68,6 @@
               class="popup__close popup__close-profile"
               aria-label="Закрыть всплывающее окно"
             ></button>
-
-            <div class="overlay"></div>
           </div>
           <!-- Конец profile popup -->
 
@@ -73,7 +86,7 @@
               </div>
 
               <button
-                type="button"
+                type="submit"
                 class="profile__info-edit"
                 aria-label="Редактировать данные профиля"
               ></button>
@@ -88,27 +101,37 @@
 
           <!-- Начало element popup -->
           <div class="popup popup-element">
+            <div class="overlay"></div>
+
             <div class="popup__container">
               <h2 class="popup__title">Новое место</h2>
 
-              <form class="popup__form popup-element__form">
+              <form class="popup__form popup-element__form" novalidate>
                 <input
                   class="popup__input popup__input_field_place-name"
-                  name="name"
+                  name="place-name"
                   type="text"
                   placeholder="Название"
+                  minlength="2"
+                  maxlength="30"
+                  required
                 />
+
+                <span class="popup__error"></span>
 
                 <input
                   class="popup__input popup__input_field_place-image"
                   name="place-image"
-                  type="text"
+                  type="url"
                   placeholder="Ссылка на картинку"
+                  required
                 />
+
+                <span class="popup__error"></span>
 
                 <button
                   type="submit"
-                  class="popup__btn-save popup-element__btn-save"
+                  class="popup__btn-save popup-element__btn-save popup__button popup__button_disabled"
                 >
                   Создать
                 </button>
@@ -120,8 +143,6 @@
               class="popup__close popup__close-element"
               aria-label="Закрыть всплывающее окно"
             ></button>
-
-            <div class="overlay"></div>
           </div>
           <!-- Конец element popup -->
         </section>
@@ -131,6 +152,8 @@
         <section class="elements">
           <!-- Начало image popup -->
           <div class="popup popup-image">
+            <div class="overlay overlay_opacity"></div>
+
             <figure class="popup-image__figure">
               <button
                 type="button"
@@ -142,8 +165,6 @@
 
               <figcaption class="popup__image-title"></figcaption>
             </figure>
-
-            <div class="overlay overlay_opacity"></div>
           </div>
           <!-- Конец image popup -->
           <template class="element-template">

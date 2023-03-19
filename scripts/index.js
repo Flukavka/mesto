@@ -57,11 +57,25 @@ function prependCard(card) {
 };
 
 /**
+ * Функция принимает текущий объект из DOM и закрывает попап нажатием
+ * клавиши Esc
+ * @param {object} currentPopup текущий объект - попап
+ */
+function closePopupKeyboarEvent(currentPopup) {
+  document.addEventListener('keydown', (evt) => {
+    if (currentPopup && evt.key === 'Escape') {
+      hidePopup(currentPopup);
+    };
+  });
+};
+
+/**
  * Функция принимает текущий объект из DOM и открывает попап
  * @param {object} currentPopup текущий объект - попап
  */
 function showPopup(currentPopup) {
   currentPopup.classList.add('popup_opened');
+  closePopupKeyboarEvent(currentPopup);
 };
 
 /**
@@ -70,6 +84,7 @@ function showPopup(currentPopup) {
  */
 function hidePopup(currentPopup) {
   currentPopup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupKeyboarEvent);
 };
 
 /**
@@ -104,6 +119,7 @@ function handleCardFormSubmit(evt) {
 
   hidePopup(popupCard);
   formCardPlace.reset();
+  popupCard.querySelector('.popup-element__btn-save').classList.add('popup__button_disabled');
 };
 
 /**
@@ -119,7 +135,6 @@ function createNewCard(placeName, placeImage) {
 
 /**
  * Функция открывает попап и настраивает его содержимое
- * @param {object} cardData объект карточки
  */
 function openImagePopup(cardImage, cardTitle) {
   popupImage.src = cardImage.src;
@@ -147,25 +162,31 @@ function handleDeleteCard(buttonDeleteCard) {
   currentCard.remove();
 }
 
+//Добавляет карточки из объекта cards.js
 initialCards.forEach((card) => { prependCard(createCard(card)) });
 
+//Открыть попап с профилем
 btnProfileEdit.addEventListener('click', () => {
   importUserInfoInPopup();
   showPopup(popupProfile);
 });
 
+//Добавить карточку
 btnCardAdd.addEventListener('click', () => {
   showPopup(popupCard);
 });
 
+//Закрыть попап с профилем
 btnPopupProfileClose.addEventListener('click', () => {
   hidePopup(popupProfile);
 });
 
+//Закрыть попап с карточкой
 btnPopupCardClose.addEventListener('click', () => {
   hidePopup(popupCard);
 });
 
+//Закрыть попап с картинкой
 btnPopupImageClose.addEventListener('click', () => {
   hidePopup(popupImageWrapper);
 });
