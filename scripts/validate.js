@@ -23,7 +23,7 @@ const setEventListeners = (formElement, inputList, config) => {
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement);
+      checkInputValidity(formElement, inputElement, config);
       toggleButtonState(formElement, inputList, config);
     });
   });
@@ -34,11 +34,11 @@ const setEventListeners = (formElement, inputList, config) => {
  * @param {object} formElement текущая проверяемая форма
  * @param {object} inputElement текущее проверяемое поле ввода
  */
-const checkInputValidity = (formElement, inputElement) => {
+const checkInputValidity = (formElement, inputElement, config) => {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+    showInputError(formElement, inputElement, config);
   } else {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, config);
   }
 };
 
@@ -48,11 +48,11 @@ const checkInputValidity = (formElement, inputElement) => {
  * @param {object} formElement текущая форма
  * @param {object} inputElement текущее поле ввода
  */
-const showInputError = (formElement, inputElement) => {
+const showInputError = (formElement, inputElement, config) => {
   const errorElement = formElement.querySelector(`.popup__input_field_${inputElement.name}`);
-  inputElement.classList.add('popup__input_type_error');
+  inputElement.classList.add(config.inputErrorClass);
   errorElement.nextElementSibling.textContent = inputElement.validationMessage;
-  errorElement.nextElementSibling.classList.add('popup__error_visible');
+  errorElement.nextElementSibling.classList.add(config.errorClass);
 };
 
 /**
@@ -61,10 +61,10 @@ const showInputError = (formElement, inputElement) => {
  * @param {object} formElement текущая форма
  * @param {object} inputElement текущее поле ввода
  */
-const hideInputError = (formElement, inputElement) => {
+const hideInputError = (formElement, inputElement, config) => {
   const errorElement = formElement.querySelector(`.popup__input_field_${inputElement.name}`);
-  inputElement.classList.remove('popup__input_type_error');
-  errorElement.nextElementSibling.classList.remove('popup__error_visible');
+  inputElement.classList.remove(config.inputErrorClass);
+  errorElement.nextElementSibling.classList.remove(config.errorClass);
   errorElement.nextElementSibling.textContent = '';
 };
 
@@ -78,8 +78,10 @@ const toggleButtonState = (formElement, inputList, config) => {
   const popupButton = formElement.querySelector(config.submitButtonSelector);
   if (hasInvalidInput(inputList)) {
     popupButton.classList.add(config.inactiveButtonClass);
+    popupButton.disabled = true;
   } else {
     popupButton.classList.remove(config.inactiveButtonClass);
+    popupButton.disabled = false;
   }
 };
 
