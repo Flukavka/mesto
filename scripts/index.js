@@ -1,51 +1,15 @@
 'use strict'
-const popupProfile = document.querySelector('.popup-profile');
-const popupCard = document.querySelector('.popup-element');
-const popupImageWrapper = document.querySelector('.popup-image');
-const btnProfileEdit = document.querySelector('.profile__info-edit');
-const btnCardAdd = document.querySelector('.profile__btn-add');
-const placeName = document.querySelector('.popup__input_field_place-name');
-const placeImage = document.querySelector('.popup__input_field_place-image');
-const popupImage = document.querySelector('.popup__image');
-const popupTitle = document.querySelector('.popup__image-title');
-const userName = document.querySelector('.profile__username');
-const userNameInput = document.querySelector('.popup__input_field_username');
-const userProfession = document.querySelector('.profile__profession');
-const userProfessionInput = document.querySelector('.popup__input_field_profession');
-const formProfile = document.querySelector('.popup-profile__form');
-const formCardPlace = document.querySelector('.popup-element__form');
-const cardsContainer = document.querySelector('.elements__list');
-const cardTemplate = document.querySelector('.element-template');
-const popups = document.querySelectorAll('.popup');
 
-/**
- * Функция принимает объект из массива initialCards, добавляет его в массив
- * и возвращает массив
- * @param {object} cardData объект
- */
-function createCard(cardData) {
-  const card = cardTemplate.content.cloneNode(true);
-  const cardTitle = card.querySelector('.element__title');
-  const cardImage = card.querySelector('.element__image');
+import {
+  initialCards, popupProfile, popupCard, btnProfileEdit,
+  btnCardAdd, placeName, placeImage, userName, userNameInput,
+  userProfession, userProfessionInput, formProfile, formCardPlace, cardsContainer,
+  cardTemplate, popups, config
+} from './constants.js';
 
-  cardImage.src = cardData.link;
-  cardImage.alt = `Фотография ${cardData.name}`;
-  cardTitle.textContent = cardData.name;
+import Card from './Card.js';
 
-  //Событие лайка карточки
-  const buttonLike = card.querySelector('.element__btn');
-  buttonLike.addEventListener("click", () => handleLikeCard(buttonLike));
-
-
-  //Событие удаления карточки
-  const buttonDeleteCard = card.querySelector('.element__btn-delete');
-  buttonDeleteCard.addEventListener('click', () => handleDeleteCard(buttonDeleteCard));
-
-  //Событие открытие попапа с изображением
-  cardImage.addEventListener('click', () => openImagePopup(cardImage, cardTitle));
-
-  return card;
-};
+import FormValidator from './FormValidator.js';
 
 /**
  * Функция принимает объект с карточкой на вход и добавляет её на страницу
@@ -59,7 +23,7 @@ function prependCard(card) {
  * Функция принимает объект-эвент, проверяет его и закрывает попап по нажатию
  * клавиши Escape
  */
-function closeByEscape(evt) {
+export function closeByEscape(evt) {
   if (evt.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened');
     hidePopup(openedPopup);
@@ -112,7 +76,22 @@ function handleProfileFormSubmit(evt) {
 function disableSubmitButton(evt) {
   evt.submitter.classList.add('popup__button_disabled');
   evt.submitter.disabled = true;
-}
+};
+
+/**
+ * Функция принимает данные и передаёт их в виде объекта функции создания карты
+ * и добавляет карточку на страницу
+ * @param {string} placeName string - Наименование карточки
+ * @param {string} placeImage string - Ссылка на изображение
+ * @param {string} alt string - Значение атрибута alt
+ */
+function createNewCard(placeName, placeImage) {
+
+  const cardData = {};
+  cardData.name = placeName;
+  cardData.link = placeImage;
+  prependCard(createCard(cardData, cardTemplate));
+};
 
 /**
  * Функция сохраняет данные введённые пользователем, вызывает функцию создания
@@ -127,48 +106,19 @@ function handleCardFormSubmit(evt) {
   formCardPlace.reset();
 };
 
-/**
- * Функция принимает данные и передаёт их в виде объекта функции создания карты
- * для дальнейшего добавления на страницу
- * @param {string} placeName string - Наименование карточки
- * @param {string} placeImage string - Ссылка на изображение
- * @param {string} alt string - Значение атрибута alt
- */
-function createNewCard(placeName, placeImage) {
-  prependCard(createCard({ name: placeName, link: placeImage }));
-};
+function createCard(cardData, cardTemplate) {
+  const card = new Card(cardData, cardTemplate);
 
-/**
- * Функция открывает попап и настраивает его содержимое
- */
-function openImagePopup(cardImage, cardTitle) {
-  popupImage.src = cardImage.src;
-  popupImage.alt = cardImage.alt;
-  popupTitle.textContent = cardTitle.textContent;
-
-  showPopup(popupImageWrapper);
-};
-
-/**
- * Функция принимает на вход текущую кнопку лайк и добавляет или удаляет класс
- * @param {object} buttonLike объект переданный из обработчика события
- */
-function handleLikeCard(buttonLike) {
-  buttonLike.classList.toggle('element__btn_active');
-};
-
-/**
- * Функция принимает на вход текущую кнопку удалить, находит ближайший
- * родительский элемент с заданным классом и удаляет его
- * @param {object} buttonDeleteCard объект переданный из обработчика события
- */
-function handleDeleteCard(buttonDeleteCard) {
-  const currentCard = buttonDeleteCard.closest('.element');
-  currentCard.remove();
-};
+  const cardItem = card.generateCard();
+  return cardItem;
+}
 
 //Добавляет карточки из объекта cards.js
-initialCards.forEach((card) => { prependCard(createCard(card)) });
+initialCards.forEach((cardData) => {
+  const cardItem = new Card(cardData, cardTemplate);
+
+  prependCard(cardItem.generateCard());
+})
 
 //Открыть попап с профилем
 btnProfileEdit.addEventListener('click', () => {
@@ -194,3 +144,9 @@ btnCardAdd.addEventListener('click', () => {
 formProfile.addEventListener('submit', handleProfileFormSubmit);
 
 formCardPlace.addEventListener('submit', handleCardFormSubmit);
+
+const profileFormValidator = new FormValidator(config, formProfile);
+const newCardFormValidator = new FormValidator(config, formCardPlace);
+
+profileFormValidator.enableValidation();
+newCardFormValidator.enableValidation();
