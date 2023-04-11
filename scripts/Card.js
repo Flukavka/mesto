@@ -1,29 +1,17 @@
-import {
-  popupImageWrapper, popupImage, popupTitle, cardTemplate
-} from './constants.js';
-
-import { closeByEscape } from './index.js';
-
 export default class Card {
-  constructor(cardData, cardTemplate) {
+  constructor(cardData, cardTemplate, handleOpenPopup) {
     this._link = cardData.link;
     this._name = cardData.name;
     this._templateSelector = cardTemplate;
+    this._handleOpenPopup = handleOpenPopup;
   }
 
   //get html-template and clone
   _getTemplate() {
-    const cardElement = cardTemplate.content.cloneNode(true);
+    const cardElement = document.querySelector(this._templateSelector)
+      .content.cloneNode(true);
 
     return cardElement;
-  }
-
-  //open image popup
-  _handleOpenPopup() {
-    popupImage.src = this._link;
-    popupImage.alt = `Фотография ${this._name}`;
-    popupTitle.textContent = this._name;
-    popupImageWrapper.classList.add('popup_opened');
   }
 
   _setEventListeners() {
@@ -34,23 +22,22 @@ export default class Card {
 
     //delete card
     this.buttonDeleteCard.addEventListener('click', () => {
-      this.currentCard = this.buttonDeleteCard.closest('.element');
-      this.currentCard.remove();
+      const currentCard = this.buttonDeleteCard.closest('.element');
+      currentCard.remove();
     });
 
-    this.image.addEventListener('click', () => {
-      this._handleOpenPopup();
-
-      document.addEventListener('keydown', closeByEscape);
+    //open image popup
+    this._image.addEventListener('click', () => {
+      this._handleOpenPopup(this._image, this._name)
     });
   }
 
   generateCard() {
     this._element = this._getTemplate();
 
-    this.image = this._element.querySelector('.element__image');
-    this.image.src = this._link;
-    this.image.alt = `Фотография ${this._name}`;
+    this._image = this._element.querySelector('.element__image');
+    this._image.src = this._link;
+    this._image.alt = `Фотография ${this._name}`;
     this._element.querySelector('.element__title').textContent = this._name;
 
     //like btn

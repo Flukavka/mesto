@@ -4,7 +4,7 @@ import {
   initialCards, popupProfile, popupCard, btnProfileEdit,
   btnCardAdd, placeName, placeImage, userName, userNameInput,
   userProfession, userProfessionInput, formProfile, formCardPlace, cardsContainer,
-  cardTemplate, popups, config
+  popups, config, popupImageWrapper, popupImage, popupTitle
 } from './constants.js';
 
 import Card from './Card.js';
@@ -70,15 +70,6 @@ function handleProfileFormSubmit(evt) {
 };
 
 /**
- * Функция отключает кнопку отправки у попапа с добавлением карточки
- * @param {object} evt объект-эвент
- */
-function disableSubmitButton(evt) {
-  evt.submitter.classList.add('popup__button_disabled');
-  evt.submitter.disabled = true;
-};
-
-/**
  * Функция принимает данные и передаёт их в виде объекта функции создания карты
  * и добавляет карточку на страницу
  * @param {string} placeName string - Наименование карточки
@@ -90,7 +81,7 @@ function createNewCard(placeName, placeImage) {
   const cardData = {};
   cardData.name = placeName;
   cardData.link = placeImage;
-  prependCard(createCard(cardData, cardTemplate));
+  prependCard(createCard(cardData));
 };
 
 /**
@@ -101,23 +92,31 @@ function handleCardFormSubmit(evt) {
   evt.preventDefault();
 
   createNewCard(placeName.value, placeImage.value);
-  disableSubmitButton(evt);
   hidePopup(popupCard);
   formCardPlace.reset();
+  newCardFormValidator.toggleButtonState();
 };
 
-function createCard(cardData, cardTemplate) {
-  const card = new Card(cardData, cardTemplate);
+//Создаёт экземпляр класса карточки
+function createCard(cardData) {
+  const card = new Card(cardData, '.element-template', handleOpenPopup);
 
   const cardItem = card.generateCard();
   return cardItem;
 }
 
+//Открывает и настраивает попап с изображением
+function handleOpenPopup(placeImage, placeName) {
+
+  popupImage.src = placeImage.src;
+  popupImage.alt = `Фотография ${placeName}`;
+  popupTitle.textContent = placeName;
+  showPopup(popupImageWrapper);
+}
+
 //Добавляет карточки из объекта cards.js
 initialCards.forEach((cardData) => {
-  const cardItem = new Card(cardData, cardTemplate);
-
-  prependCard(cardItem.generateCard());
+  prependCard(createCard(cardData));
 })
 
 //Открыть попап с профилем
@@ -126,7 +125,7 @@ btnProfileEdit.addEventListener('click', () => {
   showPopup(popupProfile);
 });
 
-// Закрывает попапы
+//Закрывает попапы
 popups.forEach((popup) => {
   popup.addEventListener('mousedown', (evt) => {
     if (evt.target.classList.contains('popup__close')

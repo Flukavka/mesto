@@ -50,12 +50,11 @@ const userProfessionInput = document.querySelector('.popup__input_field_professi
 const formProfile = document.querySelector('.popup-profile__form');
 const formCardPlace = document.querySelector('.popup-element__form');
 const cardsContainer = document.querySelector('.elements__list');
-const cardTemplate = document.querySelector('.element-template');
 const popups = document.querySelectorAll('.popup');
 
 export {
   initialCards, popupProfile, popupCard, popupImageWrapper, btnProfileEdit,
   btnCardAdd, placeName, placeImage, popupImage, popupTitle, userName, userNameInput,
   userProfession, userProfessionInput, formProfile, formCardPlace, cardsContainer,
-  cardTemplate, popups, validationConfig as config
+  popups, validationConfig as config
 }
