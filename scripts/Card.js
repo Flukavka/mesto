@@ -16,13 +16,13 @@ export default class Card {
 
   _setEventListeners() {
     //like
-    this.buttonLike.addEventListener('click', () => {
-      this.buttonLike.classList.toggle('element__btn_active');
+    this._buttonLike.addEventListener('click', () => {
+      this._buttonLike.classList.toggle('element__btn_active');
     });
 
     //delete card
-    this.buttonDeleteCard.addEventListener('click', () => {
-      const currentCard = this.buttonDeleteCard.closest('.element');
+    this._buttonDeleteCard.addEventListener('click', () => {
+      const currentCard = this._buttonDeleteCard.closest('.element');
       currentCard.remove();
     });
 
@@ -41,10 +41,10 @@ export default class Card {
     this._element.querySelector('.element__title').textContent = this._name;
 
     //like btn
-    this.buttonLike = this._element.querySelector('.element__btn');
+    this._buttonLike = this._element.querySelector('.element__btn');
 
     //delete card btn
-    this.buttonDeleteCard = this._element.querySelector('.element__btn-delete');
+    this._buttonDeleteCard = this._element.querySelector('.element__btn-delete');
 
     this._setEventListeners();
     return this._element;

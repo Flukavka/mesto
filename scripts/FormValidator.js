@@ -3,6 +3,7 @@ export default class FormValidator {
     this._config = config;
     this._formElement = formElement;
     this._inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+    this._popupButton = formElement.querySelector(config.submitButtonSelector);
   }
 
   _showInputError(inputElement) {
@@ -34,13 +35,12 @@ export default class FormValidator {
   }
 
   toggleButtonState() {
-    const popupButton = this._formElement.querySelector(this._config.submitButtonSelector);
     if (this._hasInvalidInput()) {
-      popupButton.classList.add(this._config.inactiveButtonClass);
-      popupButton.disabled = true;
+      this._popupButton.classList.add(this._config.inactiveButtonClass);
+      this._popupButton.disabled = true;
     } else {
-      popupButton.classList.remove(this._config.inactiveButtonClass);
-      popupButton.disabled = false;
+      this._popupButton.classList.remove(this._config.inactiveButtonClass);
+      this._popupButton.disabled = false;
     }
   }
 
