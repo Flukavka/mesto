@@ -16,6 +16,7 @@ export default class Popup {
     document.removeEventListener('keydown', this._handleEscClose);
   }
 
+
   _handleEscClose(evt) {
     if (evt.key === 'Escape') {
       this.close();
@@ -26,8 +27,9 @@ export default class Popup {
     document.addEventListener('mousedown', (evt) => {
       if (evt.target.classList.contains('popup__close')
         || evt.target.classList.contains('overlay')) {
-        this.close()
+        this.close();
       };
+
     })
   }
 }

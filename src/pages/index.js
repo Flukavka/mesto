@@ -1,5 +1,7 @@
 'use strict'
 
+import './index.css';
+
 import {
   initialCards, btnProfileEdit,
   btnCardAdd, formProfile, formCardPlace, config
@@ -37,9 +39,7 @@ cardsList.rendererItems();
 //Функция принимает данные и передаёт их в виде объекта функции создания карты
 //и добавляет карточку на страницу
 function createNewCard(cardData) {
-  if (cardData.name != '' && cardData.link != '') {
-    cardsList.addItem(createCard(cardData));
-  }
+  cardsList.addItem(createCard(cardData));
 };
 
 //Открывает попап
@@ -47,33 +47,30 @@ function handleOpenPopup(placeImage, placeName) {
 
   const popupWithImage = new PopupWithImage({ placeImage, placeName },
     '.popup-image');
-  popupWithImage.open()
+  popupWithImage.open();
 };
 
 function openedPopupWithPlaceForm() {
   const popupWithPlaceForm = new PopupWithForm('.popup-element', {
     handleFormSubmit: (cardData) => {
       createNewCard(cardData);
-      popupWithPlaceForm.close()
+      popupWithPlaceForm.close();
       newCardFormValidator.toggleButtonState();
     }
   });
   popupWithPlaceForm.open();
 };
-btnCardAdd.addEventListener('click', openedPopupWithPlaceForm);
 
+btnCardAdd.addEventListener('click', openedPopupWithPlaceForm);
 
 const user = new UserInfo('.profile__username', '.profile__profession');
 
 function openedPopupWithProfileForm() {
   const popupWithProfileForm = new PopupWithForm('.popup-profile', {
     handleFormSubmit: (userData) => {
-      if (userData.name != '' && userData.profession != '') {
-        user.setUserInfo(userData);
-
-        popupWithProfileForm.close();
-        profileFormValidator.toggleButtonState();
-      }
+      user.setUserInfo(userData);
+      popupWithProfileForm.close();
+      profileFormValidator.toggleButtonState();
     }
   })
 
