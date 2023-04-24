@@ -53,6 +53,15 @@ export default class FormValidator {
     });
   }
 
+  resetValidation() {
+    this._inputList.forEach((inputElement) => {
+      if (inputElement.parentElement.classList.contains('popup-profile__form')) {
+        this.toggleButtonState();
+      }
+      this._hideInputError(inputElement);
+    });
+  }
+
   enableValidation() {
     this._setEventListeners(this._inputList);
   }

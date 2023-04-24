@@ -3,8 +3,8 @@
 import './index.css';
 
 import {
-  initialCards, btnProfileEdit,
-  btnCardAdd, formProfile, formCardPlace, config
+  initialCards, buttonProfileEdit,
+  buttonCardAdd, formProfile, formCardPlace, config
 } from '../utils/constants.js';
 
 import Card from '../components/Card.js';
@@ -19,15 +19,13 @@ const newCardFormValidator = new FormValidator(config, formCardPlace);
 profileFormValidator.enableValidation();
 newCardFormValidator.enableValidation();
 
-// Создаёт карточки
 function createCard(cardData) {
-  const card = new Card(cardData, '.element-template', handleOpenPopup);
+  const card = new Card(cardData, '.element-template', handleOpenImagePopup);
 
   const cardItem = card.generateCard();
   return cardItem;
-}
+};
 
-//Осуществляет отрисовку карточек на странице
 const cardsList = new Section({
   data: initialCards,
   renderer: (cardData) => {
@@ -36,45 +34,54 @@ const cardsList = new Section({
 }, '.elements__list');
 cardsList.rendererItems();
 
-//Функция принимает данные и передаёт их в виде объекта функции создания карты
-//и добавляет карточку на страницу
 function createNewCard(cardData) {
   cardsList.addItem(createCard(cardData));
 };
 
-//Открывает попап
-function handleOpenPopup(placeImage, placeName) {
 
-  const popupWithImage = new PopupWithImage({ placeImage, placeName },
-    '.popup-image');
-  popupWithImage.open();
+const popupWithImage = new PopupWithImage('.popup-image');
+
+function handleOpenImagePopup(placeImage, placeName) {
+  popupWithImage.open({ placeImage, placeName });
 };
 
-function openedPopupWithPlaceForm() {
-  const popupWithPlaceForm = new PopupWithForm('.popup-element', {
-    handleFormSubmit: (cardData) => {
-      createNewCard(cardData);
-      popupWithPlaceForm.close();
-      newCardFormValidator.toggleButtonState();
-    }
-  });
+popupWithImage.setEventListeners();
+
+
+const popupWithPlaceForm = new PopupWithForm('.popup-element', {
+  handleFormSubmit: (cardData) => {
+    createNewCard(cardData);
+    popupWithPlaceForm.close();
+  }
+});
+
+popupWithPlaceForm.setEventListeners();
+
+function openPopupWithPlaceForm() {
   popupWithPlaceForm.open();
+  newCardFormValidator.resetValidation();
 };
 
-btnCardAdd.addEventListener('click', openedPopupWithPlaceForm);
+buttonCardAdd.addEventListener('click', openPopupWithPlaceForm);
+
 
 const user = new UserInfo('.profile__username', '.profile__profession');
 
-function openedPopupWithProfileForm() {
-  const popupWithProfileForm = new PopupWithForm('.popup-profile', {
-    handleFormSubmit: (userData) => {
-      user.setUserInfo(userData);
-      popupWithProfileForm.close();
-      profileFormValidator.toggleButtonState();
-    }
-  })
 
+const popupWithProfileForm = new PopupWithForm('.popup-profile', {
+  handleFormSubmit: (userData) => {
+    user.setUserInfo(userData);
+    popupWithProfileForm.close();
+  }
+});
+
+popupWithProfileForm.setEventListeners();
+
+function openPopupWithProfileForm() {
+  const userData = user.getUserInfo();
+  profileFormValidator.resetValidation();
+  popupWithProfileForm.setInputValues(userData)
   popupWithProfileForm.open();
 };
 
-btnProfileEdit.addEventListener('click', openedPopupWithProfileForm);
+buttonProfileEdit.addEventListener('click', openPopupWithProfileForm);

@@ -5,6 +5,7 @@
   font-size: 12px;
   line-height: 1.25;
   height: 15px;
+  opacity: 0;
 }
 
 .popup__error:first-of-type {

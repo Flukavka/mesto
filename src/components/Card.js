@@ -1,9 +1,9 @@
 export default class Card {
-  constructor(cardData, cardTemplate, handleOpenPopup) {
+  constructor(cardData, cardTemplate, handleOpenImagePopup) {
     this._link = cardData.link;
     this._name = cardData.name;
     this._templateSelector = cardTemplate;
-    this._handleOpenPopup = handleOpenPopup;
+    this._handleOpenImagePopup = handleOpenImagePopup;
   }
 
   //get html-template and clone
@@ -28,7 +28,7 @@ export default class Card {
 
     //open image popup
     this._image.addEventListener('click', () => {
-      this._handleOpenPopup(this._image, this._name)
+      this._handleOpenImagePopup(this._image, this._name)
     });
   }
 

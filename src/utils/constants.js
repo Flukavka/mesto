@@ -37,24 +37,19 @@ const validationConfig = {
 const popupProfile = document.querySelector('.popup-profile');
 const popupCard = document.querySelector('.popup-element');
 const popupImageWrapper = document.querySelector('.popup-image');
-const btnProfileEdit = document.querySelector('.profile__info-edit');
-const btnCardAdd = document.querySelector('.profile__btn-add');
+const buttonProfileEdit = document.querySelector('.profile__info-edit');
+const buttonCardAdd = document.querySelector('.profile__btn-add');
 const placeName = document.querySelector('.popup__input_field_name');
 const placeImage = document.querySelector('.popup__input_field_link');
 const popupImage = document.querySelector('.popup__image');
 const popupTitle = document.querySelector('.popup__image-title');
-const userName = document.querySelector('.profile__username');
-const userNameInput = document.querySelector('.popup__input_field_username');
-const userProfession = document.querySelector('.profile__profession');
-const userProfessionInput = document.querySelector('.popup__input_field_profession');
 const formProfile = document.querySelector('.popup-profile__form');
 const formCardPlace = document.querySelector('.popup-element__form');
 const cardsContainer = document.querySelector('.elements__list');
 const popups = document.querySelectorAll('.popup');
 
 export {
-  initialCards, popupProfile, popupCard, popupImageWrapper, btnProfileEdit,
-  btnCardAdd, placeName, placeImage, popupImage, popupTitle, userName, userNameInput,
-  userProfession, userProfessionInput, formProfile, formCardPlace, cardsContainer,
-  popups, validationConfig as config
+  initialCards, popupProfile, popupCard, popupImageWrapper, buttonProfileEdit,
+  buttonCardAdd, placeName, placeImage, popupImage, popupTitle, formProfile,
+  formCardPlace, cardsContainer, popups, validationConfig as config
 }
