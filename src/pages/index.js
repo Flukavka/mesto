@@ -79,7 +79,6 @@ function createUserCard(cardData) {
 const cardsList = new Section({
 
   renderer: (cardData) => {
-    console.log(cardData)
     if (cardData.owner._id === userId) {
       cardsList.addItem(createUserCard(cardData));
     } else {
