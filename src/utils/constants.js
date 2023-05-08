@@ -1,30 +1,3 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -39,17 +12,23 @@ const popupCard = document.querySelector('.popup-element');
 const popupImageWrapper = document.querySelector('.popup-image');
 const buttonProfileEdit = document.querySelector('.profile__info-edit');
 const buttonCardAdd = document.querySelector('.profile__btn-add');
+const buttonProfileAvatarEdit = document.querySelector('.profile__avatar-edit');
 const placeName = document.querySelector('.popup__input_field_name');
 const placeImage = document.querySelector('.popup__input_field_link');
 const popupImage = document.querySelector('.popup__image');
 const popupTitle = document.querySelector('.popup__image-title');
 const formProfile = document.querySelector('.popup-profile__form');
 const formCardPlace = document.querySelector('.popup-element__form');
+const formProfileAvatar = document.querySelector('.popup-avatar__form');
 const cardsContainer = document.querySelector('.elements__list');
 const popups = document.querySelectorAll('.popup');
+const buttonAvatarPopupSubmit = document.querySelector('.popup-avatar__btn-save');
+const buttonProfilePopupSubmit = document.querySelector('.popup-profile__btn-save');
+const buttonPlacePopupSubmit = document.querySelector('.popup-element__btn-save');
 
 export {
-  initialCards, popupProfile, popupCard, popupImageWrapper, buttonProfileEdit,
+  formProfileAvatar, buttonProfileAvatarEdit, popupProfile, popupCard, popupImageWrapper, buttonProfileEdit,
   buttonCardAdd, placeName, placeImage, popupImage, popupTitle, formProfile,
-  formCardPlace, cardsContainer, popups, validationConfig as config
+  formCardPlace, cardsContainer, popups, buttonAvatarPopupSubmit, buttonProfilePopupSubmit,
+  buttonPlacePopupSubmit, validationConfig as config
 }

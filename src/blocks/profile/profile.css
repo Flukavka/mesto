@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 40px 0 50px;
+  position: relative;
 }
 
 @media screen and (max-width: 900px) {

@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Место</title>
-    <!-- <link rel="stylesheet" href="./index.css" /> -->
   </head>
   <body>
     <div class="root">
@@ -43,8 +42,8 @@
                 <span class="popup__error"></span>
 
                 <input
-                  class="popup__input popup__input_field_profession"
-                  name="profession"
+                  class="popup__input popup__input_field_about"
+                  name="about"
                   type="text"
                   placeholder="Введите профессию"
                   minlength="2"
@@ -54,7 +53,10 @@
 
                 <span class="popup__error"></span>
 
-                <button type="submit" class="popup__btn-save popup__button">
+                <button
+                  type="submit"
+                  class="popup__btn-save popup__button popup-profile__btn-save"
+                >
                   Сохранить
                 </button>
               </form>
@@ -69,11 +71,53 @@
           <!-- Конец profile popup -->
 
           <div class="profile__info">
-            <img
-              class="profile__avatar"
-              src="<%=require('../images/avatar.jpg')%>"
-              alt="Аватар пользователя"
-            />
+            <div class="profile__avatar-wrapper">
+              <img
+                class="profile__avatar"
+                src="<%=require('../images/avatar.jpg')%>"
+                alt="Аватар пользователя"
+              />
+
+              <button
+                class="profile__avatar-edit"
+                aria-label="Изменить аватар"
+              ></button>
+            </div>
+
+            <!-- Начало avatar popup -->
+            <div class="popup popup-avatar">
+              <div class="overlay"></div>
+
+              <div class="popup__container">
+                <h2 class="popup__title">Обновить аватар</h2>
+
+                <form class="popup__form popup-avatar__form" novalidate>
+                  <input
+                    class="popup__input popup__input_field_avatar"
+                    name="avatar"
+                    type="url"
+                    placeholder="Введите ссылку"
+                    required
+                  />
+
+                  <span class="popup__error"></span>
+
+                  <button
+                    type="submit"
+                    class="popup__btn-save popup__button popup-avatar__btn-save"
+                  >
+                    Сохранить
+                  </button>
+                </form>
+              </div>
+
+              <button
+                type="button"
+                class="popup__close popup__close-avatar"
+                aria-label="Закрыть всплывающее окно"
+              ></button>
+            </div>
+            <!-- Конец avatar popup -->
 
             <div class="profile__user-info">
               <div class="profile__wrapper">
@@ -143,6 +187,33 @@
             ></button>
           </div>
           <!-- Конец element popup -->
+
+          <!-- Начало clarification element popup -->
+          <div class="popup popup-clarification">
+            <div class="overlay"></div>
+
+            <div class="popup__container">
+              <h2 class="popup__title popup__title-clarification">
+                Вы уверены?
+              </h2>
+
+              <form class="popup__form popup-clarification__form">
+                <button
+                  type="submit"
+                  class="popup__btn-save popup-clarification__btn-save popup__button"
+                >
+                  Да
+                </button>
+              </form>
+            </div>
+
+            <button
+              type="button"
+              class="popup__close popup__close-clarification"
+              aria-label="Закрыть всплывающее окно"
+            ></button>
+          </div>
+          <!-- Конец clarification element popup -->
         </section>
         <!-- Конец секции profile -->
 
@@ -169,6 +240,26 @@
             <li class="element">
               <img class="element__image" src="#" alt="Фотография" />
 
+              <div class="element__description">
+                <h2 class="element__title"></h2>
+
+                <div class="element__like">
+                  <button
+                    class="element__btn"
+                    type="button"
+                    aria-label="Кнопка лайк"
+                  ></button>
+
+                  <span class="element__like-count">0</span>
+                </div>
+              </div>
+            </li>
+          </template>
+
+          <template class="user-element-template">
+            <li class="element">
+              <img class="element__image" src="#" alt="Фотография" />
+
               <button
                 class="element__btn-delete"
                 type="button"
@@ -178,11 +269,15 @@
               <div class="element__description">
                 <h2 class="element__title"></h2>
 
-                <button
-                  class="element__btn"
-                  type="button"
-                  aria-label="Кнопка лайк"
-                ></button>
+                <div class="element__like">
+                  <button
+                    class="element__btn"
+                    type="button"
+                    aria-label="Кнопка лайк"
+                  ></button>
+
+                  <span class="element__like-count">0</span>
+                </div>
               </div>
             </li>
           </template>
@@ -198,7 +293,5 @@
       </footer>
       <!-- Конец блока footer -->
     </div>
-
-    <!-- <script type="module" src="./index.js"></script> -->
   </body>
 </html>
