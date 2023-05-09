@@ -25,9 +25,11 @@ const popups = document.querySelectorAll('.popup');
 const buttonAvatarPopupSubmit = document.querySelector('.popup-avatar__btn-save');
 const buttonProfilePopupSubmit = document.querySelector('.popup-profile__btn-save');
 const buttonPlacePopupSubmit = document.querySelector('.popup-element__btn-save');
+const templateSelectorCard = '.element-template';
+const templateSelectorUserCard = '.user-element-template';
 
 export {
-  formProfileAvatar, buttonProfileAvatarEdit, popupProfile, popupCard, popupImageWrapper, buttonProfileEdit,
+  templateSelectorCard, templateSelectorUserCard, formProfileAvatar, buttonProfileAvatarEdit, popupProfile, popupCard, popupImageWrapper, buttonProfileEdit,
   buttonCardAdd, placeName, placeImage, popupImage, popupTitle, formProfile,
   formCardPlace, cardsContainer, popups, buttonAvatarPopupSubmit, buttonProfilePopupSubmit,
   buttonPlacePopupSubmit, validationConfig as config
