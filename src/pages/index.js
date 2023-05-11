@@ -70,8 +70,10 @@ const cardsList = new Section({
 
   renderer: (cardData) => {
     if (cardData.owner._id === userId) {
+      console.log(cardData)
       cardsList.addItem(createCard(cardData, templateSelectorUserCard));
     } else {
+      console.log(cardData)
       cardsList.addItem(createCard(cardData, templateSelectorCard));
     }
   }
@@ -134,12 +136,9 @@ const popupWithProfileForm = new PopupWithForm('.popup-profile', {
 popupWithProfileForm.setEventListeners();
 
 function openPopupWithProfileForm() {
-  api.getUserInfo()
-    .then((res) => {
-      popupWithProfileForm.setInputValues(res)
-      profileFormValidator.resetValidation();
-      popupWithProfileForm.open();
-    });
+  popupWithProfileForm.setInputValues(user.getUserInfo());
+  profileFormValidator.resetValidation();
+  popupWithProfileForm.open();
 };
 
 buttonProfileEdit.addEventListener('click', openPopupWithProfileForm);
@@ -218,11 +217,7 @@ function getCard(card) {
 function setLikeCard(card) {
   api.likeCard(card.cardObject)
     .then((res) => {
-      card.toggleLikeActiveClass();
-      card.buttonLike.addEventListener('click', card.unlikeCardEvent);
-      card.buttonLike.removeEventListener('click', card.likeCardEvent);
-      card.getLikeCard(res);
-
+      card.addLike(res)
     })
     .catch((err) => {
       console.log(err, 'Ошибка лайка карточки ' + card.cardObject.id);
@@ -237,10 +232,7 @@ function checkLikes(cardData) {
 function unlikeCard(card) {
   api.unlikeCard(card.cardObject)
     .then((res) => {
-      card.toggleLikeActiveClass();
-      card.buttonLike.addEventListener('click', card.likeCardEvent);
-      card.buttonLike.removeEventListener('click', card.unlikeCardEvent);
-      card.getLikeCard(res);
+      card.removeLike(res);
     })
     .catch((err) => {
       console.log(err, 'Ошибка лайка карточки ' + card.cardObject.id);

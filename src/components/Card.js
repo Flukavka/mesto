@@ -62,9 +62,23 @@ export default class Card {
     this._unlikeCard(this);
   }
 
+  addLike(res) {
+    this.toggleLikeActiveClass();
+    this.buttonLike.addEventListener('click', this.unlikeCardEvent);
+    this.buttonLike.removeEventListener('click', this.likeCardEvent);
+    this.getLikeCard(res);
+  }
+
+  removeLike(res) {
+    this.toggleLikeActiveClass();
+    this.buttonLike.addEventListener('click', this.likeCardEvent);
+    this.buttonLike.removeEventListener('click', this.unlikeCardEvent);
+    this.getLikeCard(res);
+  }
+
   getLikeCard(card) {
     this.likeCount = card.likes.length
-    this.cardElement.querySelector('.element__like-count').textContent = this.likeCount;
+    this._likeCountElement.textContent = this.likeCount;
   }
 
   generateCard() {
@@ -73,7 +87,8 @@ export default class Card {
     this._image.src = this._link;
     this._image.alt = `Фотография ${this._name}`;
     this._element.querySelector('.element__title').textContent = this._name;
-    this._element.querySelector('.element__like-count').textContent = this._likes.length;
+    this._likeCountElement = this._element.querySelector('.element__like-count');
+    this._likeCountElement.textContent = this._likes.length;
 
     //like btn
     this.buttonLike = this._element.querySelector('.element__btn');
