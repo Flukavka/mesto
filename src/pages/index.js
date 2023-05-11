@@ -70,10 +70,8 @@ const cardsList = new Section({
 
   renderer: (cardData) => {
     if (cardData.owner._id === userId) {
-      console.log(cardData)
       cardsList.addItem(createCard(cardData, templateSelectorUserCard));
     } else {
-      console.log(cardData)
       cardsList.addItem(createCard(cardData, templateSelectorCard));
     }
   }
